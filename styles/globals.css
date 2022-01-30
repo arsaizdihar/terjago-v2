@@ -1,16 +1,86 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-poppins bg-primary;
+  }
+  ::selection {
+    @apply bg-primary;
+  }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@layer utilities {
+  .animation-delay-100 {
+    animation-delay: 0.1s;
+  }
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+  .animation-delay-300 {
+    animation-delay: 0.3s;
+  }
 }
 
-* {
-  box-sizing: border-box;
+.react-select__control {
+  @apply border-none outline-none ring-1 ring-black hover:ring hover:ring-secondary focus:ring focus:ring-secondary duration-300 text-gray-800 !important;
+}
+
+.react-select__control--is-focused {
+  @apply border-secondary shadow-none !important;
+}
+
+.react-select__option--is-focused {
+  @apply bg-yellow-100 !important;
+}
+
+.react-select__option--is-selected {
+  @apply bg-primary !important;
+}
+
+.svg-bg-primary {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1080' height='720' preserveAspectRatio='none' viewBox='0 0 1080 720'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1133%26quot%3b)' fill='none'%3e%3crect width='1080' height='720' x='0' y='0' fill='rgba(237%2c 186%2c 56%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c279.093C50.234%2c267.606%2c91.323%2c237.393%2c134.057%2c208.596C175.824%2c180.451%2c226.063%2c158.608%2c246.866%2c112.74C267.653%2c66.906%2c250.727%2c14.785%2c244.613%2c-35.17C238.361%2c-86.253%2c232.527%2c-135.974%2c210.719%2c-182.589C182.691%2c-242.499%2c161.846%2c-317.705%2c100.669%2c-342.847C39.601%2c-367.944%2c-33.645%2c-340.709%2c-89.887%2c-306.126C-140.133%2c-275.23%2c-147.917%2c-206.017%2c-189.651%2c-164.334C-236.401%2c-117.641%2c-324.364%2c-112.074%2c-346.505%2c-49.82C-368.372%2c11.664%2c-325.55%2c76.985%2c-296.209%2c135.274C-267.784%2c191.743%2c-237.116%2c252.854%2c-180.245%2c280.467C-125.079%2c307.252%2c-59.782%2c292.763%2c0%2c279.093' fill='%23eab01a'%3e%3c/path%3e%3cpath d='M1080 1171.029C1167.122 1161.924 1258.266 1159.254 1329.808 1108.709 1400.002 1059.116 1439.9560000000001 978.4069999999999 1467.748 897.078 1493.645 821.295 1496.441 740.989 1482.409 662.142 1468.722 585.234 1431.878 517.62 1388.6399999999999 452.562 1339.812 379.093 1294.06 299.24 1215.09 259.926 1129.246 217.19 1029.21 207.96000000000004 935.189 226.81799999999998 836.152 246.68200000000002 730.499 284.515 674.236 368.404 619.168 450.51 631.075 559.944 646.246 657.636 658.623 737.334 729.5 792.326 752.095 869.749 780.491 967.0509999999999 719.581 1096.103 794.22 1164.682 865.8340000000001 1230.481 983.274 1181.137 1080 1171.029' fill='%23f0c456'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1133'%3e%3crect width='1080' height='720' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.question img {
+  @apply inline-block;
+}
+
+.question p {
+  @apply my-2;
+}
+.question table {
+  @apply w-full !important;
+}
+.question td {
+  @apply border border-black p-2;
+}
+
+.loader {
+  border-top-color: #edba38;
+  -webkit-animation: spinner 1.5s linear infinite;
+  animation: spinner 1.5s linear infinite;
+}
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
