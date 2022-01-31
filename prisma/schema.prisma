@@ -56,6 +56,8 @@ model User {
   major2Id      Int?
   majorType     MajorType @default(SAINTEK)
   role          Role      @default(USER)
+
+  @@index([email])
 }
 
 model VerificationToken {
@@ -76,6 +78,8 @@ model Major {
   majorType    MajorType  @default(SAINTEK)
   user1        User[]     @relation("user1")
   user2        User[]     @relation("user2")
+
+  @@index([majorType, universityId])
 }
 
 model University {
