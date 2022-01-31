@@ -8,9 +8,6 @@
   body {
     @apply font-poppins bg-primary;
   }
-  ::selection {
-    @apply bg-primary;
-  }
 }
 
 @layer utilities {

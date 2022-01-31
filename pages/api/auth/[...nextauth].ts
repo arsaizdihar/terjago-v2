@@ -20,8 +20,14 @@ export default NextAuth({
       from: process.env.EMAIL_FROM,
     }),
   ],
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
+  },
   callbacks: {
     session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+      }
       return session;
     },
   },
