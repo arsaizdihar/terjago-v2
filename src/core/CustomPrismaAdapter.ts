@@ -10,7 +10,42 @@ export default function CustomPrismaAdapter(
     const userAndSession = await prisma.session.findUnique({
       where: { sessionToken },
       include: {
-        user: true,
+        user: {
+          select: {
+            id: true,
+            email: true,
+            majorType: true,
+            emailVerified: true,
+            role: true,
+            name: true,
+            major1: {
+              select: {
+                id: true,
+                name: true,
+                university: {
+                  select: {
+                    id: true,
+                    name: true,
+                    link: true,
+                  },
+                },
+              },
+            },
+            major2: {
+              select: {
+                id: true,
+                name: true,
+                university: {
+                  select: {
+                    id: true,
+                    name: true,
+                    link: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
     if (!userAndSession) return null;

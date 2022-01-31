@@ -50,6 +50,12 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  major1        Major?    @relation(fields: [major1Id], references: [id], onDelete: Cascade, name: "user1")
+  major1Id      Int?
+  major2        Major?    @relation(fields: [major2Id], references: [id], onDelete: Cascade, name: "user2")
+  major2Id      Int?
+  majorType     MajorType @default(SAINTEK)
+  role          Role      @default(USER)
 }
 
 model VerificationToken {
@@ -58,4 +64,30 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Major {
+  id           Int        @id
+  name         String
+  universityId Int
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  user1        User[]     @relation("user1")
+  user2        User[]     @relation("user2")
+}
+
+model University {
+  id     Int     @id
+  name   String
+  link   String?
+  majors Major[]
+}
+
+enum MajorType {
+  SAINTEK
+  SOSHUM
+}
+
+enum Role {
+  ADMIN
+  USER
 }
