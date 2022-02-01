@@ -6,6 +6,7 @@ import prismaClient from "~/core/Prisma";
 export default NextAuth({
   adapter: CustomPrismaAdapter(prismaClient),
   secret: process.env.NEXTAUTH_SECRET,
+  pages: { signIn: "/login" },
   providers: [
     EmailProvider({
       server: {

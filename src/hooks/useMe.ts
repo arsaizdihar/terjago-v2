@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 
-const useMe = () => {
-  const { data, status } = useSession();
+const useMe = (required = false) => {
+  const { data, status } = useSession({ required });
   return {
     user: data?.user,
     isLoading: status === "loading",

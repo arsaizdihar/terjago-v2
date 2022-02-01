@@ -7,7 +7,7 @@ declare module "next-auth" {
       majorType: "SAINTEK" | "SOSHUM";
       role: "ADMIN" | "USER";
       name?: string;
-      major1: {
+      major1?: {
         id: number;
         name: string;
         university: {
@@ -16,7 +16,7 @@ declare module "next-auth" {
           link?: string;
         };
       };
-      major2: {
+      major2?: {
         id: number;
         name: string;
         university: {

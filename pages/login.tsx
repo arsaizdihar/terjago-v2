@@ -1,5 +1,6 @@
 import { GetServerSideProps } from "next";
 import { getSession, signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -7,9 +8,11 @@ import CustomHead from "~/components/common/CustomHead";
 import FieldError from "~/components/common/form/FieldError";
 import LoadingModal from "~/components/common/LoadingModal";
 import LandingPageLayout from "~/layouts/LandingPageLayout";
+
 type FormData = {
   email: string;
 };
+
 const Login = () => {
   const {
     register,
@@ -20,11 +23,15 @@ const Login = () => {
     "idle" | "fetching" | "error" | "success"
   >("idle");
 
+  const {
+    query: { callbackUrl },
+  } = useRouter();
+
   const onSubmit = handleSubmit((data) => {
     setStatus("fetching");
     signIn("email", {
       email: data.email,
-      callbackUrl: "/dashboard",
+      callbackUrl: typeof callbackUrl === "string" ? callbackUrl : "/dashboard",
       redirect: false,
     }).then(
       () => {

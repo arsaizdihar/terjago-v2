@@ -7,9 +7,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import CountUp from "~/components/common/CountUp";
 import { isServer } from "~/core/isServer";
+import useMe from "~/hooks/useMe";
 import LandingPageLayout from "~/layouts/LandingPageLayout";
 import Maskot from "../public/maskot_nobg2.png";
 
@@ -23,6 +25,7 @@ const Home = () => {
 
 const Title = () => {
   const [show, setShow] = useState(isServer);
+  const { user } = useMe();
 
   useEffect(() => {
     setShow(true);
@@ -57,6 +60,13 @@ const Title = () => {
                 salah satunya. Yuk, belajar dan ikuti Tryout di Terjago
                 Education
               </p>
+              {!user && (
+                <Link href="/login">
+                  <a className="bg-black rounded-full text-white bg-opacity-80 py-2 px-2 sm:px-4 hover:shadow-lg hover:bg-opacity-100 duration-300 inline-block mt-2">
+                    Login Sekarang
+                  </a>
+                </Link>
+              )}
             </div>
           </div>
         </div>

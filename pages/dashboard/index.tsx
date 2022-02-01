@@ -1,5 +1,6 @@
 import { signOut } from "next-auth/react";
 import React from "react";
+import DashboardLayout from "~/layouts/DashboardLayout";
 
 const DashboardMain = () => {
   return (
@@ -11,5 +12,7 @@ const DashboardMain = () => {
     </div>
   );
 };
+
+DashboardMain.Layout = DashboardLayout;
 
 export default DashboardMain;

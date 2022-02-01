@@ -137,11 +137,13 @@ const NavBar = () => {
                   </Link> */}
                   {!isLoading && (
                     <>
-                      <Link href={`${user ? "/dashboard" : "/register"}`}>
-                        <a className="bg-gray-100 rounded-full bg-opacity-80 py-2 px-2 sm:px-4 hover:shadow-lg hover:bg-opacity-100 duration-300">
-                          {user ? "Dashboard" : "Daftar"}
-                        </a>
-                      </Link>
+                      {user && (
+                        <Link href="/dashboard">
+                          <a className="bg-gray-100 rounded-full bg-opacity-80 py-2 px-2 sm:px-4 hover:shadow-lg hover:bg-opacity-100 duration-300">
+                            Dashboard
+                          </a>
+                        </Link>
+                      )}
                       {!user && (
                         <Link href="/login">
                           <a className="bg-black rounded-full text-white bg-opacity-80 py-2 px-2 sm:px-4 hover:shadow-lg hover:bg-opacity-100 duration-300">
