@@ -11,9 +11,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import CountUp from "~/components/common/CountUp";
 import { isServer } from "~/core/isServer";
+import { withSession } from "~/core/ServerSide";
 import useMe from "~/hooks/useMe";
 import LandingPageLayout from "~/layouts/LandingPageLayout";
 import Maskot from "../public/maskot_nobg2.png";
+
+export const getServerSideProps = withSession({});
 
 const Home = () => {
   return (

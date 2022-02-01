@@ -6,7 +6,7 @@ import useMe from "~/hooks/useMe";
 
 const DashboardLayout: React.FC = ({ children }) => {
   const [open, setOpen] = useState(false);
-  const {} = useMe(true);
+  const {} = useMe({ required: true });
   return (
     <div className="bg-pape">
       <CustomHead

@@ -98,7 +98,6 @@ const Login = () => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   if (session?.user) {
-    console.log(session.user);
     return {
       props: { session },
       redirect: {
