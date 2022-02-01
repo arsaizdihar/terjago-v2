@@ -9,12 +9,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       if (!session) {
         return res.status(401);
       }
-      const { name, major1Id, major2Id, majorType } = req.body;
+      const { name, major1, major2, majorType } = req.body;
       // TODO: check if major1Id and major2Id are valid
       try {
         await db.user.update({
           where: { id: session.user.id },
-          data: { name, major1Id, major2Id, majorType },
+          data: {
+            name,
+            major1Id: major1,
+            major2Id: major2,
+            majorType,
+          },
         });
         return res.status(200).json({ message: "success" });
       } catch (error) {
