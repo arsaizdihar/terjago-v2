@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
-import SelectSearch from "react-select-search";
+import SelectSearch, { fuzzySearch } from "react-select-search";
 import { toast } from "react-toastify";
 import TextInput from "~/components/common/form/TextInput";
 import { usePageData } from "~/core/pageData";
@@ -41,20 +40,16 @@ const majorTypeOptions = [
 
 const ProfileSettings = () => {
   const { user } = useMe({ optimist: true });
-  const { watch, register, setValue, getValues, handleSubmit } =
-    useForm<FormData>({
-      defaultValues: {
-        name: user.name,
-        university1: user.major1?.university.id,
-        major1: user.major1?.id,
-        university2: user.major2?.university.id,
-        major2: user.major2?.id,
-        majorType: user.majorType,
-      },
-    });
-  const university1 = watch("university1");
-  const university2 = watch("university2");
-  const majorType = watch("majorType");
+  const [state, setState] = useState({
+    name: user.name || "",
+    majorType: user.majorType,
+    university1: user.major1?.university.id,
+    major1: user.major1?.id,
+    university2: user.major2?.university.id,
+    major2: user.major2?.id,
+  });
+
+  const { major1, major2, majorType, name, university1, university2 } = state;
   const [majors1, setMajors1] = useState<MajorSelect[]>([]);
   const [majors2, setMajors2] = useState<MajorSelect[]>([]);
   useEffect(() => {
@@ -78,59 +73,68 @@ const ProfileSettings = () => {
     () => majors2.map((m) => ({ name: m.name, value: m.id })),
     [majors2]
   );
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = (e: any) => {
+    e.preventDefault();
     const promise = updateProfile({
-      name: data.name,
-      major1: data.major1,
-      major2: data.major2,
-      majorType: data.majorType,
+      name: name,
+      major1: major1,
+      major2: major2,
+      majorType: majorType,
     });
-    toast.promise(promise, {
-      success: "Profile updated",
-      error: "Error updating profile",
-      pending: "Updating profile...",
-    });
-  });
+    toast
+      .promise(promise, {
+        success: "Profile updated",
+        error: "Error updating profile",
+        pending: "Updating profile...",
+      })
+      .then(() => window.location.reload());
+  };
 
   return (
-    <form className="max-w-screen-md mx-auto w-full" onSubmit={onSubmit}>
+    <form className="max-w-screen-md mx-auto w-full px-4" onSubmit={onSubmit}>
       <TextInput
         type="text"
-        {...register("name", { required: true })}
         placeholder="Name"
         label="Name"
+        value={name}
+        onChange={(e) => setState({ ...state, name: e.target.value })}
       />
       <label>Jurusan</label>
       <SelectSearch
         options={majorTypeOptions}
         value={majorType}
-        onChange={(value) => setValue("majorType", value as any)}
+        onChange={(value) => setState({ ...state, majorType: value as any })}
+        filterOptions={fuzzySearch}
       />
-      <label>Pilihan Univ 1</label>
+      <label className="mt-2 block">Pilihan Univ 1</label>
       <SelectSearch
         options={options}
         value={university1 as any}
         search
-        onChange={(value) => setValue("university1", value as any)}
+        onChange={(value) => setState({ ...state, university1: value as any })}
+        filterOptions={fuzzySearch}
       />
       <SelectSearch
         options={majors1Options}
         search
-        value={getValues("major1") as any}
-        onChange={(value) => setValue("major1", value as any)}
+        value={major1 as any}
+        onChange={(value) => setState({ ...state, major1: value as any })}
+        filterOptions={fuzzySearch}
       />
-      <label>Pilihan Univ 2</label>
+      <label className="mt-2 block">Pilihan Univ 2</label>
       <SelectSearch
         options={options}
         value={university2 as any}
         search
-        onChange={(value) => setValue("university2", value as any)}
+        onChange={(value) => setState({ ...state, university2: value as any })}
+        filterOptions={fuzzySearch}
       />
       <SelectSearch
         options={majors2Options}
         search
-        value={getValues("major2") as any}
-        onChange={(value) => setValue("major2", value as any)}
+        value={major2 as any}
+        onChange={(value) => setState({ ...state, major2: value as any })}
+        filterOptions={fuzzySearch}
       />
       <button className="w-40 px-2 py-1.5 bg-green-400 text-white font-medium rounded-md text-center block mx-auto mt-2">
         SAVE

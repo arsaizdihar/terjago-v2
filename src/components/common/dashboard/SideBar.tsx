@@ -58,7 +58,7 @@ const SideBar: React.FC<Props> = ({ setOpen, open }) => {
             setOpen={setOpen}
           />
         ))}
-        {user?.is_staff && (
+        {user?.role == "ADMIN" && (
           <>
             <hr className="border border-secondary my-4" />
             <h3 className="font-bold text-center mt-4 mb-2">Admin</h3>
